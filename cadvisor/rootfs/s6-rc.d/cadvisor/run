@@ -6,4 +6,4 @@
 # ==============================================================================
 bashio::log.info "Starting cAdvisor..."
 
-exec /usr/bin/cadvisor
+exec /usr/bin/cadvisor -logtostderr --docker=unix:///run/docker.sock
