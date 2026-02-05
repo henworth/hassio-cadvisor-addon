@@ -1,6 +1,6 @@
+ARG BUILD_FROM
 FROM gcr.io/cadvisor/cadvisor:v0.56.2 AS cadvisor
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:stable
-FROM ${BUILD_FROM}
+FROM $BUILD_FROM
 
 RUN apk --no-cache add libc6-compat device-mapper findutils ndctl zfs && \
     apk --no-cache add thin-provisioning-tools --repository http://dl-3.alpinelinux.org/alpine/edge/main/ && \
