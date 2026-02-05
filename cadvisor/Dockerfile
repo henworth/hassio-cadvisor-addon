@@ -1,5 +1,6 @@
-FROM gcr.io/cadvisor/cadvisor:v0.47.2 as cadvisor
-FROM ghcr.io/hassio-addons/base:14.3.1
+FROM gcr.io/cadvisor/cadvisor:v0.56.2 AS cadvisor
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:stable
+FROM ${BUILD_FROM}
 
 RUN apk --no-cache add libc6-compat device-mapper findutils ndctl zfs && \
     apk --no-cache add thin-provisioning-tools --repository http://dl-3.alpinelinux.org/alpine/edge/main/ && \
@@ -28,7 +29,7 @@ LABEL \
     io.hass.description="${BUILD_DESCRIPTION}" \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version=${BUILD_VERSION} \
+    io.hass.version="${BUILD_VERSION}" \
     maintainer="christian-vdz (https://github.com/christian-vdz)" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
@@ -38,9 +39,9 @@ LABEL \
     org.opencontainers.image.url="https://github.com/christian-vdz" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
     org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
-    org.opencontainers.image.created=${BUILD_DATE} \
-    org.opencontainers.image.revision=${BUILD_REF} \
-    org.opencontainers.image.version=${BUILD_VERSION}
+    org.opencontainers.image.created="${BUILD_DATE} "\
+    org.opencontainers.image.revision="${BUILD_REF}" \
+    org.opencontainers.image.version="${BUILD_VERSION}"
 
 # Healthcheck
 ENV CADVISOR_HEALTHCHECK_URL=http://localhost:8080/healthz
