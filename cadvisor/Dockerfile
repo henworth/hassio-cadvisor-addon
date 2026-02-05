@@ -1,5 +1,5 @@
 ARG BUILD_FROM
-FROM gchr.io/cadvisor/cadvisor:v0.56.2 AS cadvisor
+FROM ghcr.io/google/cadvisor:v0.56.2 AS cadvisor
 FROM $BUILD_FROM
 
 RUN apk --no-cache add libc6-compat device-mapper findutils ndctl zfs && \
